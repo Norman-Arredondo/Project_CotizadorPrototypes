@@ -9,6 +9,9 @@ function seguro(marca, year, tipo) {
 
 function UI() { }
 
+
+//Prototypes
+
 //Llena las opciones de los años, genera HTML y sólo pertenece a UI
 UI.prototype.llenarOpciones = () =>{
     const max = new Date().getFullYear(),
@@ -22,6 +25,32 @@ UI.prototype.llenarOpciones = () =>{
         option.textContent = i; //Para ver los años
         selectYear.appendChild(option);
     }
+}
+
+//Muestra Alertas en pantalla
+//No tiene this porque no hay ninguna propiedad en UI
+UI.prototype.mostrarMensaje = (mensaje, tipo) => {
+
+    const div = document.createElement('div');
+
+    if(tipo === 'error'){
+        div.classList.add('error'); //mensaje y error vienenen en la hoja de estilos
+
+    }else {
+        //div.classList.add('mensaje', 'correcto');
+        div.classList.add('correcto');
+    }
+
+    div.classList.add('mensaje', 'mt-10');
+    div.textContent = mensaje;
+
+    //Insertar en el HTML
+    const formulario = document.querySelector('#cotizar-seguro');
+    formulario.insertBefore(div, document.querySelector('#resultado'));
+
+    setTimeout(() => {
+        div.remove();
+    }, 2000);
 }
 
 //Instanciar UI
@@ -57,8 +86,15 @@ function cotizarSeguro(e) {
     const tipo = document.querySelector('input[name="tipo"]:checked').value;
 
     if(marca=== '' || year=== '' || tipo === '') {
-        console.log('No pasó la validación');
-    } else{
-        console.log('Si pasó la validación');
+        ui.mostrarMensaje('Todos los campos son obligatorios', 'error');
+        return;
     }
+
+    ui.mostrarMensaje('Cotizando...', 'exito'); //Pertenece al proto de mostrarMensaje
+
+
+    //Instanciar el seguro
+
+
+    //Utilizar el prototye que va a cotizar
 }
