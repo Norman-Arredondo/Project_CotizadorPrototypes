@@ -105,6 +105,26 @@ UI.prototype.mostrarMensaje = (mensaje, tipo) => {
     }, 2000);
 }
 
+
+UI.prototype.mostrarResultado = (total, seguro) =>{
+
+    // Crear el resultado
+    const div = document.createElement('div');
+    div.classList.add('mt-10');
+
+    div.innerHTML = `
+
+        <p class="header">Tu Resumen</p>
+        <p class="font-bold">Total: ${total}</p>
+    `;
+
+    const resultadoDiv = document.querySelector('#resultado'); //seleccionamos el div
+    resultadoDiv.appendChild(div); //le paso el div que acabo de crear arriba 
+
+
+    //Mostrar el spiner
+}
+
 //Instanciar UI
 const ui = new UI();
 
@@ -147,8 +167,10 @@ function cotizarSeguro(e) {
 
     //Instanciar el seguro
     const seguro = new Seguro(marca, year, tipo);
-    seguro.cotizarSeguro();
-
+    const total = seguro.cotizarSeguro();
+    
 
     //Utilizar el prototye que va a cotizar
+    ui.mostrarResultado(total, seguro);
+
 }
