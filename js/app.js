@@ -119,10 +119,19 @@ UI.prototype.mostrarResultado = (total, seguro) =>{
     `;
 
     const resultadoDiv = document.querySelector('#resultado'); //seleccionamos el div
-    resultadoDiv.appendChild(div); //le paso el div que acabo de crear arriba 
+    
 
 
     //Mostrar el spiner
+    const spinner = document.querySelector('#cargando');
+    spinner.style.display = 'block';
+
+    setTimeout(() => {
+        spinner.style.display = 'none'; //Se borra el spinner
+
+        resultadoDiv.appendChild(div); //le paso el div que acabo de crear arriba y se muestra el resultado
+    }, 2000);
+
 }
 
 //Instanciar UI
@@ -164,6 +173,12 @@ function cotizarSeguro(e) {
 
     ui.mostrarMensaje('Cotizando...', 'exito'); //Pertenece al proto de mostrarMensaje
 
+
+    // Ocultar las cotizaciones previas
+    const resultados = document.querySelector('#resultado div');
+    if(resultados != null) {
+        resultados.remove();
+    }
 
     //Instanciar el seguro
     const seguro = new Seguro(marca, year, tipo);
