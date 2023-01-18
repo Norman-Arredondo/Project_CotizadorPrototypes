@@ -108,6 +108,26 @@ UI.prototype.mostrarMensaje = (mensaje, tipo) => {
 
 UI.prototype.mostrarResultado = (total, seguro) =>{
 
+    const {marca, year, tipo } = seguro;
+
+    let textoMarca;
+
+    switch(marca) {
+        case '1':
+            textoMarca = 'Americano';
+            break;
+
+        case '2':
+            textoMarca = 'Asiatico';
+                break;
+
+        case '3':
+            textoMarca = 'Europeo';
+            break;
+        default:
+            break;
+    }
+
     // Crear el resultado
     const div = document.createElement('div');
     div.classList.add('mt-10');
@@ -115,7 +135,10 @@ UI.prototype.mostrarResultado = (total, seguro) =>{
     div.innerHTML = `
 
         <p class="header">Tu Resumen</p>
-        <p class="font-bold">Total: ${total}</p>
+        <p class="font-bold">Marca: <span class="font-normal">  ${textoMarca} </span> </p>
+        <p class="font-bold">Año: <span class="font-normal"> ${year} </span> </p>
+        <p class="font-bold">Tipo: <span class="font-normal capitalize"> ${tipo} </span> </p>
+        <p class="font-bold">Total: <span class="font-normal"> $ ${total} </span> </p>
     `;
 
     const resultadoDiv = document.querySelector('#resultado'); //seleccionamos el div
